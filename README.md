@@ -15,7 +15,3 @@ docker run -it -v /home/berlitz/data:/usr/src/app/data word2vecf:latest ./word2v
 # convert to numpy vectors
 docker run -it -v /home/berlitz/data:/usr/src/app/data word2vecf:latest python ./scripts/vecs2nps.py ./data/dim200vecs ./data/vecs
 ```
-
-
-
-curl https://eberlitz.blob.core.windows.net/ptwiki2vec/images/image-word2vecf.tar -o ./image-word2vecf.tar
