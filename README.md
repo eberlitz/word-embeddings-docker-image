@@ -1,8 +1,7 @@
+
+```sh
+# Build the image
 docker build -t word2vecf:latest .
-docker run -it word2vecf:latest /bin/bash
-
-docker run -it -v /home/berlitz/data:/usr/src/app/data word2vecf:latest 
-
 
 # Generate word vocabulary file
 docker run -it -v /home/berlitz/data:/usr/src/app/data word2vecf:latest python ./scripts/contexts.py ./data/ptwiki.db -o ./data/contexts/ -wv 50 -b 1000 
@@ -15,7 +14,7 @@ docker run -it -v /home/berlitz/data:/usr/src/app/data word2vecf:latest ./word2v
 
 # convert to numpy vectors
 docker run -it -v /home/berlitz/data:/usr/src/app/data word2vecf:latest python ./scripts/vecs2nps.py ./data/dim200vecs ./data/vecs
-
+```
 
 
 
