@@ -63,7 +63,7 @@ def extract_process(opts, i, jobs_queue, output_queue):
             logging.debug('Quit extractor')
             break
 
-report_period = 1000           # progress report period
+report_period = 10           # progress report period
 
 def dump_counter(filename, counter):
     with open(filename, encoding='utf-8', mode='w', buffering = 65536) as f:
