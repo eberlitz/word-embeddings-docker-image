@@ -41,11 +41,14 @@ def main():
                         help="window")
     parser.add_argument("-m", "--mincount", type=int, default=2,
                         help="mincount")
+    parser.add_argument("-sg", "--sg", type=int, default=0,
+                        help="use skip-gram")
 
     args = parser.parse_args()
     output_dirname = args.output
     input_dir = args.input
     size = args.size
+    sg = args.sg
     window = args.window
     min_count = args.mincount
     output_path = args.output
@@ -63,6 +66,7 @@ def main():
                                    size=size,
                                    window=window,
                                    min_count=min_count,
+                                   sg=sg,
                                    workers=multiprocessing.cpu_count())
 
     # model.train(documents, total_examples=len(documents), epochs=10)
@@ -74,7 +78,7 @@ def main():
     model.init_sims(replace=True)
 
     model_file_name = os.path.join(
-        output_path, 'word2vec-s{0}-w{1}-m{2}'.format(size, window, min_count))
+        output_path, 'word2vec-s{0}-w{1}-m{2}-sg{3}'.format(size, window, min_count, sg))
     # model.save(model_file_name)
     model.wv.save_word2vec_format(
         '{0}.bin'.format(model_file_name), binary=True)
