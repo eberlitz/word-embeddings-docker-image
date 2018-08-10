@@ -1,7 +1,7 @@
 
 ```sh
 # Build the image
-docker build -t word2vecf:latest .
+docker build -t word2vecf:v1 .
 
 # Generate word2vecf input files
 docker run -it -v /home/berlitz/data:/usr/src/app/data word2vecf:latest python ./scripts/multiprocess_contexts.py ./data/ptwiki.db -o ./data/contexts/ -b 1000
@@ -14,7 +14,9 @@ docker run -it -v /home/berlitz/data:/usr/src/app/data word2vecf:latest python .
 
 # train word2vec models
 curl https://eberlitz.blob.core.windows.net/ptwiki2vec/data/ptwiki-articles-text-preprocessed.tar.gz -o ./data/ptwiki-articles-text-preprocessed
+docker run -it -v /home/berlitz/data:/usr/src/app/data word2vecf:latest python ./scripts/train-word2vec.py ./data/ptwiki-articles-text-preprocessed -o ./data/models/word2vec/ --window 5 --mincount 2 --sg 0 --size 50
 
-docker run -it -v /home/berlitz/data:/usr/src/app/data word2vecf:latest python ./scripts/train-word2vec.py ./data/ptwiki-articles-text-preprocessed ./models/word2vec/ -size 200 -window 5 -mincount 2
+# generate a single txt file from compressed files folder
+docker run -it -v /home/berlitz/data:/usr/src/app/data word2vecf:latest python ./scripts/to-single-txt.py ./data/ptwiki-articles-text-preprocessed/ -o ./data/ptwiki-preprocessed-all.txt
 
 ```
