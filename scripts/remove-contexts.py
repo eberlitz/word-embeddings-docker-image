@@ -16,7 +16,7 @@ def filter_file(deps_context_path, output_dirname, mode, vocab):
                 if '\t' in line or '=' in line:
                     continue
                 tokens = line.split(' ')
-                if len(tokens) !== 2:
+                if len(tokens) != 2:
                     print(line)
                     continue
                 if mode == 'cv':
