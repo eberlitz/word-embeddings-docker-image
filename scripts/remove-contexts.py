@@ -16,18 +16,24 @@ def filter_file(deps_context_path, output_dirname, mode, vocab):
                 if '\t' in line or '=' in line:
                     continue
                 tokens = line.split(' ')
-                if len(tokens) != 2:
-                    print(line)
-                    continue
                 if mode == 'cv':
                     word = tokens[0].split('_')[1]
                 elif mode == 'wv':
                     word = tokens[0]
                 else:
-                    word, context = tokens
-                    ctx_word = context.split('_')[1]
-                    if ctx_word not in vocab:
+                    word = tokens[0]
+                    if word not in vocab:
                         continue
+                    contexts = tokens[1:]
+                    for context in contexts:
+                        ctx_word = context.split('_')[1]
+                        if ctx_word not in vocab:
+                            continue
+                        if len(contexts) > 1:
+                            print('{} {}\n'.format(word,context))
+                        output.write('{} {}\n'.format(word,context))
+                        continue    
+                    # separadamente <advl_uniram-a >n_aliança
                 if word not in vocab:
                     continue
                 output.write(line+'\n')
