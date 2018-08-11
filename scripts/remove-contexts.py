@@ -15,12 +15,16 @@ def filter_file(deps_context_path, output_dirname, mode, vocab):
                 line = line.strip()
                 if '\t' in line or '=' in line:
                     continue
+                tokens = line.split(' ')
+                if len(tokens) !== 2:
+                    print(line)
+                    continue
                 if mode == 'cv':
-                    word = line.split(' ')[0].split('_')[1]
+                    word = tokens[0].split('_')[1]
                 elif mode == 'wv':
-                    word = line.split(' ')[0]
+                    word = tokens[0]
                 else:
-                    word, context = line.split(' ')
+                    word, context = tokens
                     ctx_word = context.split('_')[1]
                     if ctx_word not in vocab:
                         continue
