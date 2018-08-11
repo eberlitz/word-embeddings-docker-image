@@ -29,11 +29,8 @@ def filter_file(deps_context_path, output_dirname, mode, vocab):
                         ctx_word = context.split('_')[1]
                         if ctx_word not in vocab:
                             continue
-                        if len(contexts) > 1:
-                            print('{} {}\n'.format(word,context))
                         output.write('{} {}\n'.format(word,context))
                         continue    
-                    # separadamente <advl_uniram-a >n_aliança
                 if word not in vocab:
                     continue
                 output.write(line+'\n')
