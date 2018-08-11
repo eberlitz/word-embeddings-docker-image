@@ -30,7 +30,8 @@ def filter_file(deps_context_path, output_dirname, mode, vocab):
                         if ctx_word not in vocab:
                             continue
                         output.write('{} {}\n'.format(word,context))
-                        continue    
+                        continue
+                    continue
                 if word not in vocab:
                     continue
                 output.write(line+'\n')
