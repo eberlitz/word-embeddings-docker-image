@@ -70,7 +70,7 @@ def main():
             wv = KeyedVectors.load_word2vec_format(path, binary=False)
             result = wv.evaluate_word_pairs(pairs)
             output.write(format_entry.format(path, result))
-            evaluationCount++
+            evaluationCount += 1
             print('Evaluating {}/{}'.format(evaluationCount, total))
         for path in GloVeModels:
             tmp_file = get_tmpfile("glove2w2v_" + os.path.basename(path))
@@ -79,25 +79,25 @@ def main():
             result = wv.evaluate_word_pairs(pairs)
             output.write(format_entry.format(path, result))
             os.remove(tmp_file)
-            evaluationCount++
+            evaluationCount += 1
             print('Evaluating {}/{}'.format(evaluationCount, total))
         for path in wang2vec:
             wv = KeyedVectors.load_word2vec_format(path, binary=True)
             result = wv.evaluate_word_pairs(pairs)
             output.write(format_entry.format(path, result))
-            evaluationCount++
+            evaluationCount += 1
             print('Evaluating {}/{}'.format(evaluationCount, total))
         for path in word2vec:
             wv = KeyedVectors.load_word2vec_format(path, binary=True)
             result = wv.evaluate_word_pairs(pairs)
             output.write(format_entry.format(path, result))
-            evaluationCount++
+            evaluationCount += 1
             print('Evaluating {}/{}'.format(evaluationCount, total))
         for path in word2vecf:
             wv = KeyedVectors.load_word2vec_format(path, binary=False)
             result = wv.evaluate_word_pairs(pairs)
             output.write(format_entry.format(path, result))
-            evaluationCount++
+            evaluationCount += 1
             print('Evaluating {}/{}'.format(evaluationCount, total))
 
 
