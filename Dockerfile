@@ -31,3 +31,5 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY ./scripts ./scripts
 
 COPY glove.sh ./
+
+COPY ./PT65.tsv ./
