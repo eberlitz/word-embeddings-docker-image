@@ -56,15 +56,22 @@ word2vecf = [
     "data/models/word2vecf/vecs-n15-s1000",
 ]
 
+
 def main():
+    total = len(fastTextModels) + len(GloVeModels) + \
+        len(wang2vec) + len(word2vec) + len(word2vecf)
+    print('Evaluating {} models'.format(total))
+    evaluationCount = 0
     pairs = 'PT65.tsv'
-    output_filename = './word_pairs_evaluation.txt'
+    output_filename = './data/word_pairs_evaluation.txt'
     format_entry = '{0}:\n\t{1}\n\n'
     with open(output_filename, 'w', encoding='utf-8') as output:
         for path in fastTextModels:
             wv = KeyedVectors.load_word2vec_format(path, binary=False)
             result = wv.evaluate_word_pairs(pairs)
             output.write(format_entry.format(path, result))
+            evaluationCount++
+            print('Evaluating {}/{}'.format(evaluationCount, total))
         for path in GloVeModels:
             tmp_file = get_tmpfile("glove2w2v_" + os.path.basename(path))
             glove2word2vec(path, tmp_file)
@@ -72,20 +79,26 @@ def main():
             result = wv.evaluate_word_pairs(pairs)
             output.write(format_entry.format(path, result))
             os.remove(tmp_file)
+            evaluationCount++
+            print('Evaluating {}/{}'.format(evaluationCount, total))
         for path in wang2vec:
             wv = KeyedVectors.load_word2vec_format(path, binary=True)
             result = wv.evaluate_word_pairs(pairs)
             output.write(format_entry.format(path, result))
+            evaluationCount++
+            print('Evaluating {}/{}'.format(evaluationCount, total))
         for path in word2vec:
             wv = KeyedVectors.load_word2vec_format(path, binary=True)
             result = wv.evaluate_word_pairs(pairs)
             output.write(format_entry.format(path, result))
+            evaluationCount++
+            print('Evaluating {}/{}'.format(evaluationCount, total))
         for path in word2vecf:
             wv = KeyedVectors.load_word2vec_format(path, binary=False)
             result = wv.evaluate_word_pairs(pairs)
             output.write(format_entry.format(path, result))
-
-
+            evaluationCount++
+            print('Evaluating {}/{}'.format(evaluationCount, total))
 
 
 if __name__ == '__main__':
