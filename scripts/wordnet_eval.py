@@ -30,21 +30,23 @@ def pathSim(w1, w2):
 def evaluate_word_pairs(pairs, fn):
     delimiter = '\t'
     similarity_gold = []
-    similarity_model_wup = []
+    similarity_model = []
     oov = 0
     for line_no, line in enumerate(smart_open(pairs)):
         line = to_unicode(line.strip())
         a, b, sim = [word for word in line.split(delimiter)]
         sim = float(sim)
-        wup = fn(a, b)
-        if wup == None:
+        value = fn(a, b)
+        if value == None:
             oov += 1
+            # similarity_gold.append(sim)
+            # similarity_model.append(0.0)    
             continue
         similarity_gold.append(sim)
-        similarity_model_wup.append(wup)
+        similarity_model.append(value)
 
-    spearman = stats.spearmanr(similarity_gold, similarity_model_wup)
-    pearson = stats.pearsonr(similarity_gold, similarity_model_wup)
+    spearman = stats.spearmanr(similarity_gold, similarity_model)
+    pearson = stats.pearsonr(similarity_gold, similarity_model)
     oov_ratio = float(oov) / (len(similarity_gold) + oov) * 100
     return (pearson, spearman, oov_ratio,)
 
