@@ -16,7 +16,7 @@ words = [
     # substantivos
     "tema",
     "inglês",
-    "faculdade"
+    "faculdade",
     "espartano",
     # verbos
     "pescando",
