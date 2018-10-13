@@ -92,14 +92,16 @@ def main():
     with open(output_filename, 'w', encoding='utf-8') as output:
         for path in word2vec_format_bin_models:
             wv = KeyedVectors.load_word2vec_format(path, binary=True)
-            result = [wv.most_similar(word,topn=50) for word in words]
+            result = [(word, wv.most_similar(word, topn=50),)
+                      for word in words]
             output.write(format_entry.format(path, result))
             output.flush()
             evaluationCount += 1
             print('Evaluating {}/{}'.format(evaluationCount, total))
         for path in word2vec_format_text_models:
             wv = KeyedVectors.load_word2vec_format(path, binary=False)
-            result = [wv.most_similar(word,topn=50) for word in words]
+            result = [(word, wv.most_similar(word, topn=50),)
+                      for word in words]
             output.write(format_entry.format(path, result))
             output.flush()
             evaluationCount += 1
@@ -108,7 +110,8 @@ def main():
             tmp_file = "data/models/GloVe/glove2w2v_" + os.path.basename(path)
             glove2word2vec(path, tmp_file)
             wv = KeyedVectors.load_word2vec_format(tmp_file)
-            result = [wv.most_similar(word,topn=50) for word in words]
+            result = [(word, wv.most_similar(word, topn=50),)
+                      for word in words]
             output.write(format_entry.format(path, result))
             output.flush()
             os.remove(tmp_file)
